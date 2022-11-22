@@ -52,6 +52,7 @@ class MainScreen : Fragment(R.layout.screen_main) {
 
             binding.nukus.setOnClickListener {
                 googleMap.animateCamera(cameraUpdate)
+
             }
 
             val markerOptions1 = MarkerOptions()
