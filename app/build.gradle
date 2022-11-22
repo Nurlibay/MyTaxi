@@ -55,6 +55,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
+    /** KTX for the Maps SDK for Android */
+    implementation 'com.google.maps.android:maps-ktx:3.2.1'
+
     /**  Live data */
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
