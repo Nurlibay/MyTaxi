@@ -1,7 +1,8 @@
-package uz.nurlibaydev.mytaxi
+package uz.nurlibaydev.mytaxi.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import uz.nurlibaydev.mytaxi.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
