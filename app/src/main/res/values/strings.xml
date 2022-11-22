@@ -10,4 +10,6 @@
     <string name="my_trips">Мои поездки</string>
     <string name="payment_methods">Способы оплаты</string>
     <string name="favorite_addresses">Избранные адреса</string>
+    <string name="where">Куда?</string>
+    <string name="address">5a улица Асадуллы Ходжаева</string>
 </resources>

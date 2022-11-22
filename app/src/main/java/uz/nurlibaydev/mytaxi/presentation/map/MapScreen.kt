@@ -27,7 +27,7 @@ class MapScreen : Fragment(R.layout.screen_map) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapScreen
+        val mapFragment = childFragmentManager.findFragmentById(R.id.content_map) as SupportMapScreen
         mapFragment.getMapAsync(mapFragment)
         mapFragment.onMapReady { googleMap: GoogleMap ->
             googleMap.uiSettings.apply {
@@ -35,7 +35,7 @@ class MapScreen : Fragment(R.layout.screen_map) {
                 isRotateGesturesEnabled = false
                 isMyLocationButtonEnabled = true
             }
-            googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
             googleMap.setOnCameraMoveListener {
                 val center = googleMap.cameraPosition.target
             }
@@ -48,10 +48,10 @@ class MapScreen : Fragment(R.layout.screen_map) {
             val cameraPosition = CameraPosition.fromLatLngZoom(nukus, 10f)
             val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
 
-            binding.nukus.setOnClickListener {
-                googleMap.animateCamera(cameraUpdate)
-
-            }
+//            binding.nukus.setOnClickListener {
+//                googleMap.animateCamera(cameraUpdate)
+//
+//            }
 
             val markerOptions1 = MarkerOptions()
             markerOptions1.position(nukus)

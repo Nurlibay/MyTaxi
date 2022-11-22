@@ -15,16 +15,16 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
+        style="@style/Widget.Custom.NavigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:itemTextColor="@color/white"
         android:layout_gravity="start"
-        style="@style/Widget.Custom.NavigationView"
         android:background="@color/color_menu_black"
-        android:fitsSystemWindows="true"
         android:clipToPadding="false"
+        android:fitsSystemWindows="true"
         android:paddingVertical="32dp"
         app:headerLayout="@layout/nav_header_main"
+        app:itemTextColor="@color/white"
         app:menu="@menu/main_drawer" />
 
 </uz.nurlibaydev.mytaxi.utils.AdvanceDrawerLayout>

@@ -28,8 +28,24 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="CustomCardCornersTop" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_custom_corner_top</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ShapeAppearance_custom_corner_top" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/margin_standard</item>
+        <item name="cornerSizeTopRight">@dimen/margin_standard</item>
+    </style>
+
+    <style name="CustomCardCorners_bottom" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_custom_corner_bottom</item>
+    </style>
+
+    <style name="ShapeAppearance_custom_corner_bottom" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">@dimen/margin_standard</item>
+        <item name="cornerSizeBottomRight">@dimen/margin_standard</item>
+    </style>
 
 </resources>
