@@ -1,4 +1,4 @@
-package uz.nurlibaydev.mytaxi.presentation.main
+package uz.nurlibaydev.mytaxi.presentation.map
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

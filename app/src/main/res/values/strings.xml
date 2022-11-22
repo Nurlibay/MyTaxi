@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MyTaxi</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_right_drawer">Right Drawer</string>
+    <string name="user_name">Nurlibay</string>
+    <string name="user_surname">Koshkinbaev</string>
+    <string name="user_phone">+998(97)968-08-05</string>
+    <string name="my_trips">Мои поездки</string>
+    <string name="payment_methods">Способы оплаты</string>
+    <string name="favorite_addresses">Избранные адреса</string>
 </resources>
