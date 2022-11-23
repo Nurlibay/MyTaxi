@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/myTrips"
+        android:id="@+id/tripHistoryScreen"
         android:icon="@drawable/ic_direction"
         android:title="@string/my_trips"
         />

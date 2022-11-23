@@ -9,6 +9,21 @@
         android:id="@+id/mainScreen"
         android:name="uz.nurlibaydev.mytaxi.presentation.main.MainScreen"
         android:label="MainScreen"
-        tools:layout="@layout/screen_main" />
+        tools:layout="@layout/screen_main">
+        <action
+            android:id="@+id/action_mainScreen_to_tripHistoryScreen"
+            app:destination="@id/tripHistoryScreen" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tripHistoryScreen"
+        android:name="uz.nurlibaydev.mytaxi.presentation.history.TripHistoryScreen"
+        android:label="TripHistoryScreen" />
+
+    <fragment
+        android:id="@+id/tripDetailScreen"
+        android:name="uz.nurlibaydev.mytaxi.presentation.detail.TripDetailScreen"
+        android:label="TripDetailScreen"
+        tools:layout="@layout/screen_trip_detail" />
 
 </navigation>

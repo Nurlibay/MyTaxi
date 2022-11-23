@@ -3,4 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Trip Detail"
+        android:textColor="@color/black"
+        android:textSize="54sp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

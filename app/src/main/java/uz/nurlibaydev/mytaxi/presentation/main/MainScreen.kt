@@ -1,13 +1,12 @@
 package uz.nurlibaydev.mytaxi.presentation.main
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
 import uz.nurlibaydev.mytaxi.R
@@ -21,25 +20,39 @@ import uz.nurlibaydev.mytaxi.utils.AdvanceDrawerLayout
 class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationItemSelectedListener {
 
     private val binding: ScreenMainBinding by viewBinding()
+    private lateinit var navController: NavController
 
-    private var drawer: AdvanceDrawerLayout? = null
+    private lateinit var drawer: AdvanceDrawerLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         drawer = binding.drawerLayout
-        val toolbar = requireActivity().findViewById<View>(R.id.toolbar) as Toolbar
+        val toolbar = binding.appBar.toolbar
+        navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
         val toggle = ActionBarDrawerToggle(requireActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer!!.addDrawerListener(toggle)
+        toggle.isDrawerIndicatorEnabled = false
+        toggle.setHomeAsUpIndicator(R.drawable.ic_menu)
+        drawer.addDrawerListener(toggle)
         toggle.syncState()
-        val navigationView = binding.navView
-        navigationView.setNavigationItemSelectedListener(this)
-        drawer!!.useCustomBehavior(Gravity.START)
-        drawer!!.useCustomBehavior(Gravity.END)
+        binding.navView.setNavigationItemSelectedListener(this)
+        toolbar.setNavigationOnClickListener {
+            drawer.openDrawer(GravityCompat.START)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_drawer, menu)
+        return super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        drawer!!.closeDrawer(GravityCompat.START)
-        return true
+        return when(item.itemId){
+            R.id.tripHistoryScreen -> {
+                drawer.closeDrawer(GravityCompat.START)
+                navController.navigate(MainScreenDirections.actionMainScreenToTripHistoryScreen())
+                true
+            }
+            else -> false
+        }
     }
 }
