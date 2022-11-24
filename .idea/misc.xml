@@ -6,9 +6,12 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/drawable/ic_baseline_location_on_24_blue.xml" value="0.165" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/drawable/ic_btn_my_location.xml" value="0.2115" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/drawable/ic_menu.xml" value="0.1545" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/drawable/ic_white_taxi.xml" value="0.1555" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/drawable/ic_yellow_taxi.xml" value="0.1555" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/app_bar_default.xml" value="0.3048211508553655" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/content_default.xml" value="0.203125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/item_trip_history.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/nav_header_main.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/screen_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MyTaxi/app/src/main/res/layout/screen_map.xml" value="0.33" />

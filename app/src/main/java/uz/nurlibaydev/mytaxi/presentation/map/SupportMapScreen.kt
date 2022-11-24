@@ -16,6 +16,6 @@ class SupportMapScreen : SupportMapFragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-
+        map.invoke(googleMap)
     }
 }
