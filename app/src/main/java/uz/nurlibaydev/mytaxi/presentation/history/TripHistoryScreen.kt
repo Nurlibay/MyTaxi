@@ -3,6 +3,7 @@ package uz.nurlibaydev.mytaxi.presentation.history
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.nurlibaydev.mytaxi.R
@@ -17,6 +18,7 @@ class TripHistoryScreen: Fragment(R.layout.screen_trip_history) {
 
     private val binding: ScreenTripHistoryBinding by viewBinding()
     private val adapter by lazy { TripHistoryAdapter() }
+    private val navController: NavController by lazy(LazyThreadSafetyMode.NONE) { findNavController() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,6 +28,9 @@ class TripHistoryScreen: Fragment(R.layout.screen_trip_history) {
             }
             rvTripHistory.adapter = adapter
             adapter.submitList(LocalData.tripHistoryList)
+            adapter.setOnItemClickListener {
+                navController.navigate(TripHistoryScreenDirections.actionTripHistoryScreenToTripDetailScreen())
+            }
         }
     }
 }

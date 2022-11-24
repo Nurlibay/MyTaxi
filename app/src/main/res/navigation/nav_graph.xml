@@ -18,7 +18,18 @@
     <fragment
         android:id="@+id/tripHistoryScreen"
         android:name="uz.nurlibaydev.mytaxi.presentation.history.TripHistoryScreen"
-        android:label="TripHistoryScreen" />
+        android:label="TripHistoryScreen"
+        tools:layout="@layout/screen_trip_history"
+        >
+        <action
+            android:id="@+id/action_tripHistoryScreen_to_tripDetailScreen"
+            app:destination="@id/tripDetailScreen"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/tripDetailScreen"
