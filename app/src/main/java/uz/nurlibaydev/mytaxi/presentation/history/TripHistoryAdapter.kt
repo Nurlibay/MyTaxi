@@ -3,50 +3,62 @@ package uz.nurlibaydev.mytaxi.presentation.history
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import uz.nurlibaydev.mytaxi.R
+import uz.nurlibaydev.mytaxi.data.models.TripHistoryData
+import uz.nurlibaydev.mytaxi.databinding.ItemTripHistoryBinding
+import uz.nurlibaydev.mytaxi.utils.extensions.onClick
 
-/**
- *  Created by Nurlibay Koshkinbaev on 24/11/2022 15:06
- */
+class TripHistoryAdapter : ListAdapter<TripHistoryData, TripHistoryAdapter.TripHistoryViewHolder>(TripHistoryItemCallBack) {
 
-class TripHistoryAdapter : ListAdapter<GroupData, GroupNameAdapter.GroupNameViewHolder>(GroupNameItemCallBack) {
-
-    inner class GroupNameViewHolder(private val binding: ItemGroupNameBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TripHistoryViewHolder(private val binding: ItemTripHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind() {
             val item = getItem(absoluteAdapterPosition)
             binding.apply {
-                checkboxGroup.text = item.name
-                root.setOnClickListener {
+                tvDate.text = item.tripDate
+                tvFirstAddress.text = item.destinationData.fromWhere
+                tvSecondAddress.text = item.destinationData.toWhere
+                tvTime.text = item.tripTime
+                tvMoney.text = "${item.tripPrice} cум"
+                when (item.carType) {
+                    1 -> ivCarType.setImageResource(R.drawable.icon_white_car)
+                    2 -> ivCarType.setImageResource(R.drawable.icon_yellow_car)
+                    else -> ivCarType.setImageResource(R.drawable.icon_black_car)
+                }
+                tripCardView.onClick {
                     itemClick.invoke(item)
                 }
             }
         }
     }
 
-    private var itemClick: (groupData: GroupData) -> Unit = {}
-    fun setOnItemClickListener(block: (GroupData) -> Unit){
+    private var itemClick: (groupData: TripHistoryData) -> Unit = {}
+    fun setOnItemClickListener(block: (TripHistoryData) -> Unit){
         itemClick = block
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupNameViewHolder {
-        return GroupNameViewHolder(ItemGroupNameBinding.bind(LayoutInflater.from(parent.context).inflate(R.layout.item_group_name, parent,false)))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripHistoryViewHolder {
+        return TripHistoryViewHolder(ItemTripHistoryBinding.bind(LayoutInflater.from(parent.context).inflate(R.layout.item_trip_history, parent,false)))
     }
 
-    override fun onBindViewHolder(holder: GroupNameViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TripHistoryViewHolder, position: Int) {
         holder.bind()
     }
 }
 
-object GroupNameItemCallBack : DiffUtil.ItemCallback<GroupData>() {
-    override fun areItemsTheSame(oldItem: GroupData, newItem: GroupData): Boolean {
-        return oldItem.id == newItem.id
+object TripHistoryItemCallBack : DiffUtil.ItemCallback<TripHistoryData>() {
+    override fun areItemsTheSame(oldItem: TripHistoryData, newItem: TripHistoryData): Boolean {
+        return oldItem.destinationData.fromWhere == newItem.destinationData.fromWhere &&
+                oldItem.destinationData.toWhere == newItem.destinationData.toWhere
     }
 
-    override fun areContentsTheSame(oldItem: GroupData, newItem: GroupData): Boolean {
-        return oldItem.name == newItem.name && oldItem.number == newItem.number &&
-                oldItem.smena == newItem.smena
+    override fun areContentsTheSame(oldItem: TripHistoryData, newItem: TripHistoryData): Boolean {
+        return oldItem.destinationData.fromWhere == newItem.destinationData.fromWhere &&
+                oldItem.destinationData.toWhere == newItem.destinationData.toWhere &&
+                oldItem.tripTime == newItem.tripTime && oldItem.tripPrice == newItem.tripPrice
+                && oldItem.carType == newItem.carType && oldItem.tripDate == newItem.tripDate
     }
 }

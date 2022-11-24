@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.nurlibaydev.mytaxi.R
+import uz.nurlibaydev.mytaxi.data.source.LocalData
 import uz.nurlibaydev.mytaxi.databinding.ScreenTripHistoryBinding
 
 /**
@@ -15,6 +16,7 @@ import uz.nurlibaydev.mytaxi.databinding.ScreenTripHistoryBinding
 class TripHistoryScreen: Fragment(R.layout.screen_trip_history) {
 
     private val binding: ScreenTripHistoryBinding by viewBinding()
+    private val adapter by lazy { TripHistoryAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,6 +24,8 @@ class TripHistoryScreen: Fragment(R.layout.screen_trip_history) {
             toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
+            rvTripHistory.adapter = adapter
+            adapter.submitList(LocalData.tripHistoryList)
         }
     }
 }
