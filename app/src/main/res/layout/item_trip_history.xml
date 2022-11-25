@@ -52,6 +52,7 @@
                     android:id="@+id/tv_first_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
                     android:text="улица Sharof Rashidov, Ташкент"
                     android:textColor="@color/black" />
@@ -74,6 +75,7 @@
                     android:id="@+id/tv_second_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
                     android:text="5a улица Асадуллы Ходжаева"
                     android:textColor="@color/black"
