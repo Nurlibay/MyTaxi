@@ -39,6 +39,8 @@ class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationIt
             toolbar.setNavigationOnClickListener {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
+
+
         }
     }
 

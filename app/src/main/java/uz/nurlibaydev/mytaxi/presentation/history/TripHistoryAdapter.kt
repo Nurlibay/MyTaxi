@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.nurlibaydev.mytaxi.R
 import uz.nurlibaydev.mytaxi.data.models.TripHistoryData
 import uz.nurlibaydev.mytaxi.databinding.ItemTripHistoryBinding
-import uz.nurlibaydev.mytaxi.utils.extensions.onClick
+import uz.nurlibaydev.mytaxi.utils.onClick
 
 class TripHistoryAdapter : ListAdapter<TripHistoryData, TripHistoryAdapter.TripHistoryViewHolder>(TripHistoryItemCallBack) {
 

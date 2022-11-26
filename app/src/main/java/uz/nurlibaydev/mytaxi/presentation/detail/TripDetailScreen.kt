@@ -1,15 +1,9 @@
 package uz.nurlibaydev.mytaxi.presentation.detail
 
-import android.Manifest
-import android.content.Context.LOCATION_SERVICE
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.PermissionChecker
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,8 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import uz.nurlibaydev.mytaxi.R
 import uz.nurlibaydev.mytaxi.databinding.ScreenTripDetailBinding
 import uz.nurlibaydev.mytaxi.presentation.map.SupportMapScreen
-import uz.nurlibaydev.mytaxi.utils.extensions.onClick
-import uz.nurlibaydev.mytaxi.utils.extensions.showMessage
+import uz.nurlibaydev.mytaxi.utils.onClick
+import uz.nurlibaydev.mytaxi.utils.showMessage
 
 
 class TripDetailScreen: Fragment(R.layout.screen_trip_detail), RoutingListener {

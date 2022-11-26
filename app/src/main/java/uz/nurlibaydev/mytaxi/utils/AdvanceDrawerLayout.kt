@@ -24,7 +24,7 @@ import uz.nurlibaydev.mytaxi.R
 import java.lang.Math.round
 
 /**
- *  Created by Nurlibay Koshkinbaev on 22/11/2022 21:40
+ * From https://github.com/shiburagi/Drawer-Behavior
  */
 
 open class AdvanceDrawerLayout : DrawerLayout {
@@ -270,7 +270,7 @@ open class AdvanceDrawerLayout : DrawerLayout {
         if (drawerView != null) updateSlideOffset(drawerView!!, if (isDrawerOpen(drawerView!!)) 1f else 0f)
     }
 
-    private fun getDrawerViewAbsoluteGravity(gravity: Int): Int {
+    fun getDrawerViewAbsoluteGravity(gravity: Int): Int {
         return GravityCompat.getAbsoluteGravity(gravity, ViewCompat.getLayoutDirection(this)) and GravityCompat.RELATIVE_HORIZONTAL_GRAVITY_MASK
     }
 

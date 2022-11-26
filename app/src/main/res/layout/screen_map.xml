@@ -72,11 +72,15 @@
                         android:src="@drawable/ic_red_pin" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_where_from"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/margin_standard"
-                        android:text="@string/address"
-                        android:textColor="#B0B0B0" />
+                        android:fontFamily="@font/lato_bold"
+                        android:text=""
+                        android:textColor="#B0B0B0"
+                        android:textSize="14sp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -114,8 +118,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_standard"
+                        android:fontFamily="@font/lato_bold"
                         android:text="@string/where"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_tv_where"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/iv_where"
                         app:layout_constraintTop_toTopOf="parent" />

@@ -52,4 +52,10 @@
     <string name="total">Итого</string>
     <string name="total_value">39 600 UZS</string>
     <string name="delete_data">Удалить данные</string>
+    <string name="cancel">Cancel</string>
+    <string name="gps_network_not_enabled">Gps Network Not Enabled</string>
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="no_location_detected">No Location Detected</string>
+    <string name="my_current_location">My Current Location</string>
 </resources>
