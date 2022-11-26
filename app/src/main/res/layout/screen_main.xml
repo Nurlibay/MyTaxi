@@ -8,8 +8,8 @@
     tools:openDrawer="start">
 
     <include
-        android:id="@+id/main_screen_content"
-        layout="@layout/main_screen_content"
+        android:id="@+id/main_content"
+        layout="@layout/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

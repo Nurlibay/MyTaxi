@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -21,8 +22,8 @@ class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationIt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            val toolbar = mainScreenContent.toolbar
-            mainScreenContent.appBar.setBackgroundColor(Color.TRANSPARENT)
+            val toolbar = mainContent.toolbar
+            mainContent.toolbar.setBackgroundColor(Color.TRANSPARENT)
             navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView)
             val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
 
@@ -43,6 +44,7 @@ class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationIt
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_drawer, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
