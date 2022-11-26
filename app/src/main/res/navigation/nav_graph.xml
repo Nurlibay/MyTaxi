@@ -35,6 +35,10 @@
         android:id="@+id/tripDetailScreen"
         android:name="uz.nurlibaydev.mytaxi.presentation.detail.TripDetailScreen"
         android:label="TripDetailScreen"
-        tools:layout="@layout/screen_trip_detail" />
+        tools:layout="@layout/screen_trip_detail" >
+        <argument
+            android:name="destination_data"
+            app:argType="uz.nurlibaydev.mytaxi.data.models.DestinationData" />
+    </fragment>
 
 </navigation>

@@ -143,7 +143,7 @@
                         android:src="@drawable/ic_target_red" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_first_address"
+                        android:id="@+id/tv_where_from"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -169,7 +169,7 @@
                         android:src="@drawable/ic_target_blue" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_second_address"
+                        android:id="@+id/tv_where_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

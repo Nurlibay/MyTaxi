@@ -29,7 +29,7 @@ class TripHistoryScreen: Fragment(R.layout.screen_trip_history) {
             rvTripHistory.adapter = adapter
             adapter.submitList(LocalData.tripHistoryList)
             adapter.setOnItemClickListener {
-                navController.navigate(TripHistoryScreenDirections.actionTripHistoryScreenToTripDetailScreen())
+                navController.navigate(TripHistoryScreenDirections.actionTripHistoryScreenToTripDetailScreen(it.destinationData))
             }
         }
     }

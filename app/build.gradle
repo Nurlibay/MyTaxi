@@ -116,6 +116,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
+    //Android Google Maps Routing example code using Wrapper library
+    implementation 'com.github.jd-alexander:library:1.1.0'
+
     // Facebook Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

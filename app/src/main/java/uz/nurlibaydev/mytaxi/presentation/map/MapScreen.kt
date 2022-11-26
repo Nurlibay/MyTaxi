@@ -37,7 +37,7 @@ class MapScreen : Fragment(R.layout.screen_map) {
                 isRotateGesturesEnabled = false
                 isMyLocationButtonEnabled = true
             }
-            googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+            googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             binding.btnMyLocation.onClick {
 
             }
