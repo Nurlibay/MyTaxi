@@ -1,11 +1,7 @@
 package uz.nurlibaydev.mytaxi.presentation.map
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,7 +23,6 @@ import uz.nurlibaydev.mytaxi.utils.UiState
 import uz.nurlibaydev.mytaxi.utils.isLocationEnabled
 import uz.nurlibaydev.mytaxi.utils.onClick
 import uz.nurlibaydev.mytaxi.utils.showMessage
-import java.util.*
 
 @AndroidEntryPoint
 class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener {
@@ -39,7 +34,6 @@ class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var centerScreenCoordinate: LatLng
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapScreen = childFragmentManager.findFragmentById(R.id.content_map) as SupportMapScreen
@@ -100,7 +94,7 @@ class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener
                         }
                     }
                     else -> {
-                        showMessage("Unknown Error!")
+                        //showMessage("Unknown Error Location!")
                     }
                 }
             }
@@ -123,7 +117,7 @@ class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener
                         binding.tvWhereFrom.text = address
                     }
                     else -> {
-                        showMessage("Unknown Error!")
+                       // showMessage("Unknown Error Address!")
                     }
                 }
             }

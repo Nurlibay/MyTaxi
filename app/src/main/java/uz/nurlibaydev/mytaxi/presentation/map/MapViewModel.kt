@@ -1,12 +1,13 @@
 package uz.nurlibaydev.mytaxi.presentation.map
 
 import android.location.Address
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import uz.nurlibaydev.mytaxi.domain.usecases.MainUseCase
 import uz.nurlibaydev.mytaxi.utils.UiState
@@ -31,15 +32,18 @@ class MapViewModel @Inject constructor(
         }
         viewModelScope.launch {
             _location.value = UiState.Loading
-            mainUseCase.getCurrentLocation().collect {
+            mainUseCase.getCurrentLocation().collectLatest {
                 when (it) {
                     is UiState.Success -> {
+                        Log.d("viewmodel_succesi", "UI STATE SUCCESS")
                         _location.value = UiState.Success(it.data)
                     }
                     is UiState.Error -> {
                         _location.value = UiState.Error(it.msg)
                     }
-                    else -> {}
+                    else -> {
+                        Log.d("viewmodel_errori", "UI STATE error")
+                    }
                 }
             }
         }

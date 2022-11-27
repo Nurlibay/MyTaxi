@@ -6,40 +6,48 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.directions.route.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import uz.nurlibaydev.mytaxi.R
+import dagger.hilt.android.AndroidEntryPoint
 import uz.nurlibaydev.mytaxi.databinding.ScreenTripDetailBinding
 import uz.nurlibaydev.mytaxi.presentation.map.SupportMapScreen
+import uz.nurlibaydev.mytaxi.utils.UiState
 import uz.nurlibaydev.mytaxi.utils.onClick
 import uz.nurlibaydev.mytaxi.utils.showMessage
+import uz.nurlibaydev.mytaxi.R
 
-
-class TripDetailScreen: Fragment(R.layout.screen_trip_detail), RoutingListener {
+@AndroidEntryPoint
+class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
 
     private val binding: ScreenTripDetailBinding by viewBinding()
+    private val viewModel: TripDetailViewModel by viewModels()
+
     private lateinit var googleMap: GoogleMap
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<NestedScrollView>
     private val args: TripDetailScreenArgs by navArgs()
     private var line: Polyline? = null
     private var locationManager: LocationManager? = null
+    private var polylines: ArrayList<Polyline>? = null
 
     //Global flags
     private var firstRefresh = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObserver()
         binding.apply {
             iconBack.onClick {
                 findNavController().popBackStack()
             }
-            setData()
+            tvWhereFrom.text = args.destinationData.fromWhere
+            tvWhereTo.text = args.destinationData.toWhere
             val mapContainer = childFragmentManager.findFragmentById(R.id.trip_detail_map_container) as SupportMapScreen
             mapContainer.getMapAsync(mapContainer)
             mapContainer.onMapReady {
@@ -48,19 +56,18 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail), RoutingListener {
                 googleMap.uiSettings.apply {
                     isCompassEnabled = false
                 }
-
-                val location1 = args.destinationData.start
-                val location2 = args.destinationData.end
+                val whereFrom = args.destinationData.start
+                val whereTo = args.destinationData.end
                 googleMap.clear()
-                googleMap.addMarker(MarkerOptions().position(location1).title("Location 1"))
-                googleMap.addMarker(MarkerOptions().position(location2).title("Location 2"))
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location1, 18F))
+                googleMap.addMarker(MarkerOptions().position(whereFrom).title(args.destinationData.fromWhere))
+                googleMap.addMarker(MarkerOptions().position(whereTo).title(args.destinationData.toWhere))
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(whereFrom, 18F))
             }
             bottomSheetBehavior = BottomSheetBehavior.from(nestedScrollView)
             val peekHeight = (resources.displayMetrics.heightPixels * 0.6).toInt()
             bottomSheetBehavior.peekHeight = peekHeight
 
-            getRoutingPath()
+            viewModel.getRoutingPath(args.destinationData.start, args.destinationData.end)
         }
     }
 
@@ -101,58 +108,41 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail), RoutingListener {
         super.onPause()
     }
 
-    private fun ScreenTripDetailBinding.setData() {
-        tvWhereFrom.text = args.destinationData.fromWhere
-        tvWhereTo.text = args.destinationData.toWhere
-    }
-
-    override fun onRoutingFailure(exception: RouteException?) {
-        showMessage("Routing Failed: ${exception?.localizedMessage}")
-    }
-
-    override fun onRoutingStart() {
-        showMessage("Routing Start")
-    }
-
-    override fun onRoutingSuccess(list: ArrayList<Route>?, p1: Int) {
-        try {
-            val listPoints: List<LatLng> = list?.get(0)!!.points
-            val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
-            val iterator = listPoints.iterator()
-            while (iterator.hasNext()) {
-                val data = iterator.next()
-                options.add(data)
+    private fun setupObserver() {
+        lifecycleScope.launchWhenResumed {
+            viewModel.route.collect {
+                when (it) {
+                    is UiState.Loading -> {
+                        showMessage("Loading")
+                    }
+                    is UiState.NetworkError -> {
+                        showMessage("NetworkError")
+                    }
+                    is UiState.Error -> {
+                        showMessage(it.msg!!)
+                    }
+                    is UiState.Success -> {
+                        val listPoints: List<LatLng> = it.data.routeList?.get(0)!!.points
+                        val options = PolylineOptions().width(5f).color(Color.BLUE).geodesic(true)
+                        val iterator = listPoints.iterator()
+                        while (iterator.hasNext()) {
+                            val data = iterator.next()
+                            options.add(data)
+                        }
+                        line?.remove()
+                        line = googleMap.addPolyline(options)
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(it.data.routeList!![0].latLgnBounds.center))
+                        val builder = LatLngBounds.Builder()
+                        builder.include(args.destinationData.start)
+                        builder.include(args.destinationData.end)
+                        val bounds = builder.build()
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50))
+                    }
+                    else -> {
+                        showMessage("Unknown Error!")
+                    }
+                }
             }
-
-            line?.remove()
-            line = googleMap.addPolyline(options)
-
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(list[0].latLgnBounds.center))
-            val builder = LatLngBounds.Builder()
-            builder.include(args.destinationData.start)
-            builder.include(args.destinationData.start)
-            val bounds = builder.build()
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50))
-        } catch (e: Exception){
-            showMessage("EXCEPTION: Cannot parse routing response")
-        }
-    }
-
-    override fun onRoutingCancelled() {
-        showMessage("Routing Cancelled")
-    }
-
-    private fun getRoutingPath() {
-        try {
-            val routing = Routing.Builder()
-                .travelMode(AbstractRouting.TravelMode.DRIVING)
-                .withListener(this)
-                .waypoints(args.destinationData.start, args.destinationData.end)
-                .key(getString(R.string.google_maps_key))
-                .build()
-            routing.execute()
-        } catch (e: java.lang.Exception) {
-            showMessage("Unable to Route")
         }
     }
 }
