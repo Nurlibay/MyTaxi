@@ -2,9 +2,10 @@ package uz.nurlibaydev.mytaxi.presentation.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -41,8 +42,6 @@ class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationIt
             toolbar.setNavigationOnClickListener {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
-
-
         }
     }
 
@@ -55,7 +54,9 @@ class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationIt
         return when(item.itemId){
             R.id.tripHistoryScreen -> {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-                navController.navigate(MainScreenDirections.actionMainScreenToTripHistoryScreen())
+                Handler(Looper.getMainLooper()).postDelayed({
+                    navController.navigate(MainScreenDirections.actionMainScreenToTripHistoryScreen())
+                }, 1000)
                 true
             }
             else -> false

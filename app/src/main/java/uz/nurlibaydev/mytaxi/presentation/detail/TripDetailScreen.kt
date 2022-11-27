@@ -66,8 +66,8 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(whereFrom, 18F))
             }
             bottomSheetBehavior = BottomSheetBehavior.from(nestedScrollView)
-            val peekHeight = (resources.displayMetrics.heightPixels * 0.6).toInt()
-            bottomSheetBehavior.peekHeight = peekHeight
+            val bottomSheetHeight = (resources.displayMetrics.heightPixels * 0.6).toInt()
+            bottomSheetBehavior.peekHeight = bottomSheetHeight
 
             viewModel.getRoutingPath(args.destinationData.start, args.destinationData.end)
         }

@@ -22,7 +22,7 @@ class MainRepositoryImpl @Inject constructor(
         if (addresses.isNotEmpty()) {
             emit(UiState.Success(addresses))
         } else {
-            emit(UiState.Error("Addresses are empty!"))
+            emit(UiState.Error("Адреса пусты!"))
         }
     }.catch {
         emit(UiState.Error(it.message.toString()))
@@ -35,7 +35,7 @@ class MainRepositoryImpl @Inject constructor(
             if (task.isSuccessful && task.result != null) {
                 trySend(UiState.Success(LatLng(task.result.latitude, task.result.longitude)))
             } else {
-                trySend(UiState.Error(task.exception?.localizedMessage?: "Unknown Error"))
+                trySend(UiState.Error(task.exception?.localizedMessage?: "Неизвестная ошибка"))
             }
         }.addOnFailureListener {
             trySend(UiState.Error(it.message.toString()))

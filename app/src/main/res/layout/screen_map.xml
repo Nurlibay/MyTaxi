@@ -22,8 +22,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/btn_my_location"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_standard"
         android:layout_marginBottom="@dimen/margin_standard"
         android:clickable="true"
@@ -32,6 +32,19 @@
         app:layout_constraintBottom_toTopOf="@id/cards"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="UnusedAttribute" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="@dimen/margin_standard"
+        android:layout_marginBottom="@dimen/margin_standard"
+        android:indeterminateTint="@color/color_progress_bar_line"
+        android:visibility="invisible"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toTopOf="@id/cards"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cards"
@@ -77,9 +90,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/margin_middle_large"
-                        android:singleLine="true"
                         android:ellipsize="marquee"
                         android:fontFamily="@font/lato_bold"
+                        android:singleLine="true"
                         android:text=""
                         android:textColor="#B0B0B0"
                         android:textSize="14sp" />

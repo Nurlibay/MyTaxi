@@ -12,30 +12,32 @@
         tools:layout="@layout/screen_main">
         <action
             android:id="@+id/action_mainScreen_to_tripHistoryScreen"
-            app:destination="@id/tripHistoryScreen" />
+            app:destination="@id/tripHistoryScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/tripHistoryScreen"
         android:name="uz.nurlibaydev.mytaxi.presentation.history.TripHistoryScreen"
         android:label="TripHistoryScreen"
-        tools:layout="@layout/screen_trip_history"
-        >
+        tools:layout="@layout/screen_trip_history">
         <action
             android:id="@+id/action_tripHistoryScreen_to_tripDetailScreen"
             app:destination="@id/tripDetailScreen"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            />
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/tripDetailScreen"
         android:name="uz.nurlibaydev.mytaxi.presentation.detail.TripDetailScreen"
         android:label="TripDetailScreen"
-        tools:layout="@layout/screen_trip_detail" >
+        tools:layout="@layout/screen_trip_detail">
         <argument
             android:name="destination_data"
             app:argType="uz.nurlibaydev.mytaxi.data.models.DestinationData" />

@@ -27,7 +27,7 @@ class MapViewModel @Inject constructor(
 
     fun getCurrentLocation() {
         if (!hasConnection()) {
-            _location.value = UiState.NetworkError("No Internet Connection!")
+            _location.value = UiState.NetworkError("Без интернета!")
             return
         }
         viewModelScope.launch {
@@ -35,15 +35,12 @@ class MapViewModel @Inject constructor(
             mainUseCase.getCurrentLocation().collectLatest {
                 when (it) {
                     is UiState.Success -> {
-                        Log.d("viewmodel_succesi", "UI STATE SUCCESS")
                         _location.value = UiState.Success(it.data)
                     }
                     is UiState.Error -> {
                         _location.value = UiState.Error(it.msg)
                     }
-                    else -> {
-                        Log.d("viewmodel_errori", "UI STATE error")
-                    }
+                    else -> {}
                 }
             }
         }
@@ -51,7 +48,7 @@ class MapViewModel @Inject constructor(
 
     fun getAddressByLocation(latLng: LatLng) {
         if (!hasConnection()) {
-            _address.value = UiState.NetworkError("No Internet Connection!")
+            _address.value = UiState.NetworkError("Без интернета!")
             return
         }
         viewModelScope.launch {

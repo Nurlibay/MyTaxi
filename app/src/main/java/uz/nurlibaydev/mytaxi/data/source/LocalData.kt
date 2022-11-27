@@ -40,7 +40,7 @@ object LocalData {
             ),
             "10:42",
             32400,
-            3
+            1
         ),
         TripHistoryData(
             mapOf(0 to "5 Июля, Вторник"),
@@ -52,7 +52,7 @@ object LocalData {
             ),
             "19:24",
             14800,
-            2
+            3
         ),
         TripHistoryData(
             mapOf(1 to "5 Июля, Вторник"),
@@ -76,7 +76,7 @@ object LocalData {
             ),
             "19:24",
             14800,
-            2
+            1
         ),
         TripHistoryData(
             mapOf(1 to "4 Июля, Вторник"),
@@ -88,7 +88,7 @@ object LocalData {
             ),
             "19:24",
             14800,
-            2
+            3
         ),
         TripHistoryData(
             mapOf(0 to "3 Июля, Вторник"),
@@ -100,7 +100,7 @@ object LocalData {
             ),
             "19:24",
             14800,
-            2
+            1
         ),
         TripHistoryData(
             mapOf(0 to "2 Июля, Вторник"),
@@ -124,7 +124,7 @@ object LocalData {
             ),
             "19:24",
             14800,
-            2
+            3
         )
     )
 }
