@@ -7,7 +7,7 @@ import uz.nurlibaydev.mytaxi.data.models.TripHistoryData
 object LocalData {
     val tripHistoryList = mutableListOf(
         TripHistoryData(
-            "6 Июля, Вторник",
+            mapOf(0 to "6 Июля, Вторник"),
             DestinationData(
                 "улица Sharof Rashidov, Ташкент",
                 "5a улица Асадуллы Ходжаева",
@@ -19,7 +19,7 @@ object LocalData {
             1
         ),
         TripHistoryData(
-            "6 Июля, Вторник",
+            mapOf(1 to "6 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -31,7 +31,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "6 Июля, Вторник",
+            mapOf(2 to "6 Июля, Вторник"),
             DestinationData(
                 "улица Sharof Rashidov, Ташкент",
                 "5a улица Асадуллы Ходжаева",
@@ -43,7 +43,7 @@ object LocalData {
             3
         ),
         TripHistoryData(
-            "5 Июля, Вторник",
+            mapOf(0 to "5 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -55,7 +55,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "5 Июля, Вторник",
+            mapOf(1 to "5 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -67,7 +67,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "4 Июля, Вторник",
+            mapOf(0 to "4 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -79,7 +79,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "4 Июля, Вторник",
+            mapOf(1 to "4 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -91,7 +91,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "3 Июля, Вторник",
+            mapOf(0 to "3 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -103,7 +103,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "2 Июля, Вторник",
+            mapOf(0 to "2 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",
@@ -115,7 +115,7 @@ object LocalData {
             2
         ),
         TripHistoryData(
-            "2 Июля, Вторник",
+            mapOf(1 to "2 Июля, Вторник"),
             DestinationData(
                 "Яшнабадский район, улица Sharof Rashidov, Ташкент",
                 "Юнусабадский район, м-в юнусабад-19, ул. дехканабад, 17",

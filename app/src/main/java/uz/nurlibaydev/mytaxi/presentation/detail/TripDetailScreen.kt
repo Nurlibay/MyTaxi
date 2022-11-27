@@ -22,6 +22,7 @@ import uz.nurlibaydev.mytaxi.utils.UiState
 import uz.nurlibaydev.mytaxi.utils.onClick
 import uz.nurlibaydev.mytaxi.utils.showMessage
 import uz.nurlibaydev.mytaxi.R
+import uz.nurlibaydev.mytaxi.utils.bitmapFromVector
 
 @AndroidEntryPoint
 class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
@@ -34,10 +35,6 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
     private val args: TripDetailScreenArgs by navArgs()
     private var line: Polyline? = null
     private var locationManager: LocationManager? = null
-    private var polylines: ArrayList<Polyline>? = null
-
-    //Global flags
-    private var firstRefresh = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,7 +45,8 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
             }
             tvWhereFrom.text = args.destinationData.fromWhere
             tvWhereTo.text = args.destinationData.toWhere
-            val mapContainer = childFragmentManager.findFragmentById(R.id.trip_detail_map_container) as SupportMapScreen
+            val mapContainer =
+                childFragmentManager.findFragmentById(R.id.trip_detail_map_container) as SupportMapScreen
             mapContainer.getMapAsync(mapContainer)
             mapContainer.onMapReady {
                 googleMap = it
@@ -59,8 +57,12 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
                 val whereFrom = args.destinationData.start
                 val whereTo = args.destinationData.end
                 googleMap.clear()
-                googleMap.addMarker(MarkerOptions().position(whereFrom).title(args.destinationData.fromWhere))
-                googleMap.addMarker(MarkerOptions().position(whereTo).title(args.destinationData.toWhere))
+                googleMap.addMarker(MarkerOptions().position(whereFrom)
+                    .title(args.destinationData.fromWhere)
+                    .icon(bitmapFromVector(R.drawable.ic_target_red)))
+                googleMap.addMarker(MarkerOptions().position(whereTo)
+                    .title(args.destinationData.toWhere)
+                    .icon(bitmapFromVector(R.drawable.ic_target_blue)))
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(whereFrom, 18F))
             }
             bottomSheetBehavior = BottomSheetBehavior.from(nestedScrollView)
@@ -71,39 +73,7 @@ class TripDetailScreen: Fragment(R.layout.screen_trip_detail) {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        firstRefresh = true
-//        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-//        if (!PermissionChecker.getInstance().checkGPSPermission(this, locationManager)) {
-//            //GPS not enabled for the application.
-//        } else if (!PermissionCheck.getInstance().checkLocationPermission(this)) {
-//            //Location permission not given.
-//        } else {
-//            showMessage("Fetching Location")
-//            try {
-//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this@TripDetailScreen)
-//                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, this)
-//            } catch (e: java.lang.Exception) {
-//                showMessage("ERROR: Cannot start location listener")
-//            }
-//        }
-    }
-
     override fun onPause() {
-//        if (locationManager != null) {
-//            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                    requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
-//                ) != PackageManager.PERMISSION_GRANTED
-//            ) {
-//
-//            }
-//            try {
-//                locationManager.removeUpdates(this@TripDetailScreen)
-//            } catch (e: Exception) {
-//                e.localizedMessage?.let { showMessage(it) }
-//            }
-//        }
         locationManager = null
         super.onPause()
     }

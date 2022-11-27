@@ -1,9 +1,9 @@
 package uz.nurlibaydev.mytaxi.data.models
 
 data class TripHistoryData(
-    var tripDate: String,
+    var tripDate: Map<Int, String>,
     val destinationData: DestinationData,
     var tripTime: String,
-    var tripPrice: Int,
+    var tripPrice: Long,
     var carType: Int
 )

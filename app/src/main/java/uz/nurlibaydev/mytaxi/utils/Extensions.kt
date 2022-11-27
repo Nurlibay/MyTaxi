@@ -44,6 +44,17 @@ fun Fragment.isLocationEnabled(): Boolean {
     return lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 }
 
+fun Long.changeFormat(): String {
+    val num = this.toString()
+    var s = ""
+    val sz = num.length
+    for (i in 0 until sz) {
+        if (i != 0 && (i - sz % 3) % 3 == 0) s += ' '
+        s += num[i]
+    }
+    return "$s сум"
+}
+
 fun View.visibility(visibility: Boolean): View {
     if (visibility) {
         this.visibility = View.VISIBLE

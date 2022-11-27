@@ -3,21 +3,12 @@ package uz.nurlibaydev.mytaxi.domain.repository
 import android.annotation.SuppressLint
 import android.location.Address
 import android.location.Geocoder
-import android.util.Log
-import com.directions.route.Route
-import com.directions.route.RouteException
-import com.directions.route.RoutingListener
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import timber.log.Timber
 import uz.nurlibaydev.mytaxi.utils.UiState
-import java.util.ArrayList
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(

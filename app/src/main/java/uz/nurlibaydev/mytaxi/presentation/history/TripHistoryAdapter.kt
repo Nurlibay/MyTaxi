@@ -1,28 +1,36 @@
 package uz.nurlibaydev.mytaxi.presentation.history
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import uz.nurlibaydev.mytaxi.R
 import uz.nurlibaydev.mytaxi.data.models.TripHistoryData
 import uz.nurlibaydev.mytaxi.databinding.ItemTripHistoryBinding
+import uz.nurlibaydev.mytaxi.utils.changeFormat
 import uz.nurlibaydev.mytaxi.utils.onClick
 
 class TripHistoryAdapter : ListAdapter<TripHistoryData, TripHistoryAdapter.TripHistoryViewHolder>(TripHistoryItemCallBack) {
 
     inner class TripHistoryViewHolder(private val binding: ItemTripHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind() {
             val item = getItem(absoluteAdapterPosition)
             binding.apply {
-                tvDate.text = item.tripDate
+                item.tripDate.keys.forEach {
+                    if(it == 0) {
+                        tvDate.isVisible = true
+                        tvDate.text = item.tripDate[it]
+                    } else {
+                        tvDate.visibility = View.GONE
+                    }
+                }
                 tvFirstAddress.text = item.destinationData.fromWhere
                 tvSecondAddress.text = item.destinationData.toWhere
                 tvTime.text = item.tripTime
-                tvMoney.text = "${item.tripPrice} cум"
+                tvMoney.text = item.tripPrice.changeFormat()
                 when (item.carType) {
                     1 -> ivCarType.setImageResource(R.drawable.icon_white_car)
                     2 -> ivCarType.setImageResource(R.drawable.icon_yellow_car)
