@@ -11,9 +11,11 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import uz.nurlibaydev.mytaxi.R
 import uz.nurlibaydev.mytaxi.databinding.ScreenMainBinding
 
+@AndroidEntryPoint
 class MainScreen : Fragment(R.layout.screen_main), NavigationView.OnNavigationItemSelectedListener {
 
     private val binding: ScreenMainBinding by viewBinding()

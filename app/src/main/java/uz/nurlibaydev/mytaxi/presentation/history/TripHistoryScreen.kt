@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import uz.nurlibaydev.mytaxi.R
 import uz.nurlibaydev.mytaxi.data.source.LocalData
 import uz.nurlibaydev.mytaxi.databinding.ScreenTripHistoryBinding
 
+@AndroidEntryPoint
 class TripHistoryScreen : Fragment(R.layout.screen_trip_history) {
 
     private val binding: ScreenTripHistoryBinding by viewBinding()

@@ -7,12 +7,12 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -20,30 +20,31 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import dagger.hilt.android.AndroidEntryPoint
 import uz.nurlibaydev.mytaxi.R
 import uz.nurlibaydev.mytaxi.databinding.ScreenMapBinding
+import uz.nurlibaydev.mytaxi.utils.UiState
 import uz.nurlibaydev.mytaxi.utils.isLocationEnabled
 import uz.nurlibaydev.mytaxi.utils.onClick
 import uz.nurlibaydev.mytaxi.utils.showMessage
 import java.util.*
 
-
+@AndroidEntryPoint
 class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener {
 
     private val binding: ScreenMapBinding by viewBinding()
-    private lateinit var lastLocation: Location
+    private val viewModel: MapViewModel by viewModels()
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var centerScreenCoordinate: LatLng
-    private lateinit var geocoder : Geocoder
-    private lateinit var addresses: List<Address>
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapScreen = childFragmentManager.findFragmentById(R.id.content_map) as SupportMapScreen
         mapScreen.getMapAsync(mapScreen)
-        geocoder = Geocoder(requireContext(), Locale.getDefault())
+        setupObservers()
         mapScreen.onMapReady { googleMap: GoogleMap ->
             mGoogleMap = googleMap
             mGoogleMap.uiSettings.apply {
@@ -59,7 +60,7 @@ class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener
             mGoogleMap.setOnCameraMoveListener {
                 centerScreenCoordinate = mGoogleMap.cameraPosition.target
                 mGoogleMap.setOnCameraIdleListener() {
-                    getAddressByLocation(centerScreenCoordinate.latitude, centerScreenCoordinate.longitude)
+                    viewModel.getAddressByLocation(LatLng(centerScreenCoordinate.latitude, centerScreenCoordinate.longitude))
                 }
             }
         }
@@ -69,7 +70,7 @@ class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener
         binding.btnMyLocation.onClick {
             if(isLocationEnabled()){
                 if(hasPermission(ACCESS_FINE_LOCATION)){
-                    findMyLocation()
+                    viewModel.getCurrentLocation()
                 } else {
                     callPermission.launch(ACCESS_FINE_LOCATION)
                 }
@@ -79,29 +80,54 @@ class MapScreen : Fragment(R.layout.screen_map), GoogleMap.OnMarkerClickListener
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun getAddressByLocation(latitude: Double, longitude: Double) {
-        addresses = geocoder.getFromLocation(latitude, longitude, 1)
-        if(this::addresses.isInitialized) {
-            val address = addresses[0].getAddressLine(0)
-            val city = addresses[0].locality
-            binding.tvWhereFrom.text = "$address $city"
-        }
-    }
-
-    @SuppressLint("MissingPermission", "SetTextI18n")
-    private fun findMyLocation() {
-        fusedLocationClient.lastLocation.addOnCompleteListener { task ->
-                if (task.isSuccessful && task.result != null) {
-                    lastLocation = task.result
-                    if(this::mGoogleMap.isInitialized) {
-                        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(lastLocation.latitude, lastLocation.longitude)))
+    private fun setupObservers() {
+        lifecycleScope.launchWhenResumed {
+            viewModel.location.collect {
+                when (it) {
+                    is UiState.Loading -> {
+                        showMessage("Loading")
                     }
-                } else {
-                    showMessage("GetLastLocation:exception ${task.exception}")
-                    showMessage(getString(R.string.no_location_detected))
+                    is UiState.NetworkError -> {
+                        showMessage("NetworkError")
+                    }
+                    is UiState.Error -> {
+                        showMessage(it.msg!!)
+                    }
+                    is UiState.Success -> {
+                        if(this@MapScreen::mGoogleMap.isInitialized) {
+                            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(it.data, 12f)
+                            mGoogleMap.animateCamera(cameraUpdate)
+                        }
+                    }
+                    else -> {
+                        showMessage("Unknown Error!")
+                    }
                 }
             }
+        }
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.address.collect {
+                when (it) {
+                    is UiState.Loading -> {
+                        showMessage("Loading")
+                    }
+                    is UiState.NetworkError -> {
+                        showMessage("NetworkError")
+                    }
+                    is UiState.Error -> {
+                        showMessage(it.msg!!)
+                    }
+                    is UiState.Success -> {
+                        val address = it.data[0].getAddressLine(0)
+                        binding.tvWhereFrom.text = address
+                    }
+                    else -> {
+                        showMessage("Unknown Error!")
+                    }
+                }
+            }
+        }
     }
 
     private val callPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
